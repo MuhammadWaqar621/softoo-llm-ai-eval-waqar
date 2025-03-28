@@ -1,0 +1,9 @@
+PyPDF2
+langdetect
+numpy
+sentence-transformers
+chromadb
+langchain
+langchain-community
+langchain-groq
+
