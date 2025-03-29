@@ -6,4 +6,10 @@ chromadb
 langchain
 langchain-community
 langchain-groq
-
+chardet
+pdfminar.six
+sqlalchemy 
+pyodbc 
+pandas 
+groq 
+rich

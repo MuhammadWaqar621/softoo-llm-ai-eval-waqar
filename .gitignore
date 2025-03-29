@@ -173,3 +173,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 myenv/
+vector_db/
+logs/
+temp_processing/
