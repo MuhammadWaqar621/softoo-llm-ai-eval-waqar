@@ -36,12 +36,18 @@ class SQLGenerator:
 
         # Construct prompt with schema information and user query
         prompt = f"""You are an AI assistant that converts natural language questions about the AdventureWorks database into SQL queries.
-        
+
 Here is the database schema information:
 {schema_info}
 
 Recent conversation history:
 {history_text}
+
+Important notes:
+1. The database uses AdventureWorksLT2022 with schema SalesLT (not Sales or Production)
+2. DO NOT use backticks (`) in the SQL query
+3. When using ORDER BY with an aggregate function, you must repeat the entire aggregate function, not use the column alias
+4. Example: Use "ORDER BY SUM(column) DESC" not "ORDER BY alias DESC"
 
 Based on the schema above and the conversation history, write a SQL query to answer this question: "{user_query}"
 Return ONLY the SQL query without any explanation. The query should be correct, executable SQL for SQL Server.
@@ -61,6 +67,9 @@ Return ONLY the SQL query without any explanation. The query should be correct, 
         # Remove any markdown formatting if present
         if sql_query.startswith("```sql"):
             sql_query = sql_query.replace("```sql", "").replace("```", "").strip()
+        
+        # Remove backticks that might still be present
+        sql_query = sql_query.replace("`", "")
 
         return sql_query
 

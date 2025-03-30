@@ -24,3 +24,7 @@ MAX_TOKENS_RESPONSE = 1000
 
 # Memory settings
 MAX_CONVERSATION_HISTORY = 5
+
+# Model directories
+MODELS_DIR = "models"
+RESULTS_DIR = "results"

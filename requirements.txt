@@ -13,3 +13,4 @@ pyodbc
 pandas 
 groq 
 rich
+statsmodels
