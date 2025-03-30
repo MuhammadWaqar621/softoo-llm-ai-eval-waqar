@@ -10,7 +10,6 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 import joblib
 import os
-from datetime import datetime, timedelta
 
 
 class TimeSeriesModel:

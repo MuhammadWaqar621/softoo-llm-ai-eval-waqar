@@ -15,7 +15,7 @@ from sql_search.analysis.prediction import SalesPrediction
 from sql_search.analysis.relationship import RelationshipAnalyzer
 from sql_search.analysis.model_training import ModelTrainer
 from sql_search.ui.console_ui import ConsoleUI
-from sql_search.utils.formatting import format_sql_result, dataframe_to_rich_table
+from sql_search.utils.formatting import dataframe_to_rich_table
 from sql_search.utils.evaluation import ModelEvaluator
 
 

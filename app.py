@@ -1,15 +1,12 @@
 import gradio as gr
 import os
 import argparse
-from typing import List, Tuple, Dict, Any, Optional
 import groq
-import time
 from rich.console import Console
 from rich.panel import Panel
 from config import *
 from document_search.rag import RAGSystem
 from sql_search.sql_database_rag import SQLDatabaseRAG
-
 
 console = Console()
 
@@ -32,33 +29,39 @@ class UnifiedRAGSystem:
     
     def get_document_rag_response(self, query: str) -> str:
         """Get response from document RAG system."""
-        # This is a wrapper around your document RAG's query method
-        # Modify to match your actual implementation
-        return self.document_rag.query(query, self.chat_history)
+        # Use answer_question instead of query method
+        return self.document_rag.answer_question(query)
     
     def get_sql_rag_response(self, query: str) -> str:
         """Get response from SQL RAG system."""
-        # This is a wrapper around your SQL RAG's query method
-        # Modify to match your actual implementation
-        return self.sql_rag.process_query(query, self.chat_history)
+        try:
+            # Try with chat history
+            return self.sql_rag.process_query(query, self.chat_history)
+        except TypeError:
+            # If process_query doesn't accept chat_history, try without it
+            return self.sql_rag.process_query(query)
     
     def generate_combined_response(self, query: str, doc_response: str, sql_response: str) -> str:
         """Use Groq to generate a combined response from both RAG outputs."""
-        # Format the prompt for Groq
+        # Format the prompt for Groq with instructions for brevity
         prompt = f"""
-        You are an assistant that combines information from different sources to provide clear, accurate answers.
-        
+        You are a concise assistant that provides brief, direct answers.
+
         USER QUERY: {query}
-        
-        SOURCE 1 (DOCUMENT DATABASE): 
+
+        DOCUMENT DATABASE INFORMATION: 
         {doc_response}
-        
-        SOURCE 2 (SQL DATABASE): 
+
+        SQL DATABASE INFORMATION: 
         {sql_response}
-        
-        Generate a single, coherent response that integrates information from both sources. 
-        If there are conflicts, explain them. If one source provides more relevant information, 
-        emphasize that. Always cite which source you're drawing from.
+
+        Instructions:
+        1. Provide a direct answer to the query without mentioning your sources
+        2. Be extremely concise - keep answers under 300 words maximum
+        3. Don't say "Based on the document" or "According to the SQL database"
+        4. Focus only on the most relevant information
+        5. Skip pleasantries and unnecessary explanations
+        6. If there's conflicting information, provide the most accurate answer without explaining the conflict
         """
         
         # Call Groq API
@@ -66,7 +69,7 @@ class UnifiedRAGSystem:
             model="llama3-70b-8192",  # Or your preferred Groq model
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,
-            max_tokens=2048,
+            max_tokens=1024,  # Reduced to encourage brevity
         )
         
         return response.choices[0].message.content
@@ -90,11 +93,12 @@ class UnifiedRAGSystem:
         """Clear the conversation history."""
         self.chat_history = []
 
+
 # Create and initialize the unified RAG system
 def initialize_rag_system(db_connection: str = DB_CONNECTION_STRING, api_key: str = GROQ_API_KEY) -> UnifiedRAGSystem:
     """Initialize the unified RAG system."""
-    # Check if vector database exists
-    vector_db_exists = os.path.exists(os.path.join(DOCUMENTS_DIRECTORY, "chroma.sqlite3"))
+    # Check if vector database exists - use PERSIST_DIRECTORY as in the RAGSystem
+    vector_db_exists = os.path.exists(os.path.join(PERSIST_DIRECTORY, "chroma.sqlite3"))
     
     # Create unified RAG system
     unified_system = UnifiedRAGSystem(db_connection, api_key)

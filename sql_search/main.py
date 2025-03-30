@@ -2,7 +2,7 @@
 Main entry point for the SQL Database RAG system with forecasting capabilities.
 """
 import argparse
-from sql_database_rag import SQLDatabaseRAG
+from sql_search.sql_database_rag import SQLDatabaseRAG
 from config import DB_CONNECTION_STRING, GROQ_API_KEY
 from rich.console import Console
 from rich.panel import Panel

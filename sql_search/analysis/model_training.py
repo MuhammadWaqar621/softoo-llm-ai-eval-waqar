@@ -8,8 +8,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from rich.console import Console
 from rich.table import Table
 from datetime import datetime, timedelta
-from sqlalchemy import text
-
 from sql_search.analysis.ml_models import ModelManager, TimeSeriesModel
 
 console = Console()
