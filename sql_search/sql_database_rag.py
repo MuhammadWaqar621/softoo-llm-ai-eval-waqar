@@ -7,16 +7,16 @@ from config import (
     GROQ_API_KEY, 
     MAX_CONVERSATION_HISTORY
 )
-from database.connection import DatabaseConnection
-from database.schema_extractor import SchemaExtractor
-from nlp.sql_generator import SQLGenerator
-from nlp.response_generator import ResponseGenerator
-from analysis.prediction import SalesPrediction
-from analysis.relationship import RelationshipAnalyzer
-from analysis.model_training import ModelTrainer
-from ui.console_ui import ConsoleUI
-from utils.formatting import format_sql_result, dataframe_to_rich_table
-from utils.evaluation import ModelEvaluator
+from sql_search.database.connection import DatabaseConnection
+from sql_search.database.schema_extractor import SchemaExtractor
+from sql_search.nlp.sql_generator import SQLGenerator
+from sql_search.nlp.response_generator import ResponseGenerator
+from sql_search.analysis.prediction import SalesPrediction
+from sql_search.analysis.relationship import RelationshipAnalyzer
+from sql_search.analysis.model_training import ModelTrainer
+from sql_search.ui.console_ui import ConsoleUI
+from sql_search.utils.formatting import format_sql_result, dataframe_to_rich_table
+from sql_search.utils.evaluation import ModelEvaluator
 
 
 class SQLDatabaseRAG:

@@ -176,3 +176,5 @@ myenv/
 vector_db/
 logs/
 temp_processing/
+models/
+results/

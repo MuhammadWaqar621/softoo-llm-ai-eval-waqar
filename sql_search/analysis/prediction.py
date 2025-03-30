@@ -7,8 +7,8 @@ from sqlalchemy import text
 from groq import Groq
 from datetime import datetime, timedelta
 from config import DEFAULT_MODEL, DEFAULT_TEMPERATURE, MAX_TOKENS_RESPONSE
-from analysis.ml_models import ModelManager
-from utils.evaluation import ModelEvaluator
+from sql_search.analysis.ml_models import ModelManager
+from sql_search.utils.evaluation import ModelEvaluator
 
 
 class SalesPrediction:

@@ -90,55 +90,11 @@ class UnifiedRAGSystem:
         """Clear the conversation history."""
         self.chat_history = []
 
-
-# Placeholder functions for development/testing
-# Replace these with actual implementations from your code
-class RAGSystem:
-    """Placeholder for document RAG system."""
-    
-    def __init__(self):
-        pass
-        
-    def ingest_documents(self):
-        """Ingest documents into vector store."""
-        time.sleep(2)  # Simulate processing
-        
-    def query(self, query: str, history=None) -> str:
-        """Query the document database."""
-        time.sleep(1)  # Simulate processing
-        return f"Document RAG found: The answer to '{query}' based on our documents is related to document insights and context."
-    
-    def interactive_qa(self):
-        """Run interactive Q&A session."""
-        pass
-
-
-class SQLDatabaseRAG:
-    """Placeholder for SQL RAG system."""
-    
-    def __init__(self, db_connection: str, api_key: str):
-        self.db_connection = db_connection
-        self.api_key = api_key
-    
-    def process_query(self, query: str, history=None) -> str:
-        """Process a query against the SQL database."""
-        time.sleep(1)  # Simulate processing
-        return f"SQL RAG found: For '{query}', our database shows relevant metrics and data points from SQL tables."
-    
-    def handle_training_query(self, query: str):
-        """Train models."""
-        pass
-    
-    def run_interactive_session(self):
-        """Run interactive session."""
-        pass
-
-
 # Create and initialize the unified RAG system
 def initialize_rag_system(db_connection: str = DB_CONNECTION_STRING, api_key: str = GROQ_API_KEY) -> UnifiedRAGSystem:
     """Initialize the unified RAG system."""
     # Check if vector database exists
-    vector_db_exists = os.path.exists(os.path.join(DOCUMENT_PERSIST_DIRECTORY, "chroma.sqlite3"))
+    vector_db_exists = os.path.exists(os.path.join(DOCUMENTS_DIRECTORY, "chroma.sqlite3"))
     
     # Create unified RAG system
     unified_system = UnifiedRAGSystem(db_connection, api_key)

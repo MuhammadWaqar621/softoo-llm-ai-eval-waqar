@@ -9,10 +9,10 @@ import time
 from groq import Groq
 from langchain.docstore.document import Document
 import config
-from document_loader import DocumentLoader
-from chunking import DocumentChunker
-from embedding import EmbeddingManager
-from vector_store import VectorStore
+from document_search.document_loader import DocumentLoader
+from document_search.chunking import DocumentChunker
+from document_search.embedding import EmbeddingManager
+from document_search.vector_store import VectorStore
 
 class RAGSystem:
     """

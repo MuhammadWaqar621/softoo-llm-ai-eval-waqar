@@ -10,7 +10,7 @@ from rich.table import Table
 from datetime import datetime, timedelta
 from sqlalchemy import text
 
-from analysis.ml_models import ModelManager, TimeSeriesModel
+from sql_search.analysis.ml_models import ModelManager, TimeSeriesModel
 
 console = Console()
 

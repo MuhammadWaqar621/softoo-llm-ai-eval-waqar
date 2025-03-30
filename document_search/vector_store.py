@@ -6,7 +6,7 @@ from typing import List, Dict, Any
 from langchain.docstore.document import Document
 from langchain_community.vectorstores import Chroma
 import config
-from embedding import EmbeddingManager
+from document_search.embedding import EmbeddingManager
 
 class VectorStore:
     """
